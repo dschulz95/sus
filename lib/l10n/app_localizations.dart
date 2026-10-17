@@ -188,6 +188,18 @@ abstract class AppLocalizations {
   /// **'Start game'**
   String get startGame;
 
+  /// No description provided for @generatingWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating word…'**
+  String get generatingWord;
+
+  /// No description provided for @aiUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'AI unavailable – using a standard word instead.'**
+  String get aiUnavailable;
+
   /// No description provided for @playerNumber.
   ///
   /// In en, this message translates to:

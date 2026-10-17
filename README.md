@@ -20,7 +20,10 @@ Crewmates win by catching an imposter; the imposter wins by staying hidden.
 
 ## Features
 
-- 12 bilingual categories (144 words) in **German & English**
+- 14 bilingual categories in **German & English**
+  - 12 static categories with a fixed word list
+  - 2 **AI-generated** categories ("2000s" & "Modern era") that create a fresh
+    secret word + hint for every round via the OpenAI API
 - 4–12 players, 1 or 2 imposters
 - Optional discussion timer (off / 2 / 3 / 5 min)
 - Optional hint word for imposters (on / off)
@@ -45,6 +48,23 @@ Run the tests:
 flutter test
 ```
 
+## AI-generated categories (OpenAI)
+
+The "2000s" and "Modern era" categories generate a new secret word + hint for
+every round using the OpenAI API instead of a fixed word list.
+
+1. Copy the template to a local config file (this file is git-ignored):
+   ```bash
+   cp assets/config.example.json assets/config.json
+   ```
+2. Open `assets/config.json` and set your API key:
+   ```json
+   { "openai_api_key": "sk-..." }
+   ```
+
+If no key is configured or the API is unreachable, the game automatically falls
+back to the category's built-in word list, so it stays playable offline.
+
 ## Project structure
 
 ```
@@ -53,13 +73,16 @@ lib/
   l10n/       # .arb localization files (gen_l10n)
   models/     # domain models
   screens/    # UI screens
-  services/   # GameEngine (pure game logic)
+  services/   # GameEngine (pure game logic), OpenAI term generator, config
   theme/      # app theme
   widgets/    # shared widgets
   app.dart     # MaterialApp
   main.dart    # entry point
+assets/
+  config.example.json   # template for the OpenAI API key (git-ignored real file: config.json)
 test/
   game_engine_test.dart
+  term_generator_test.dart
   widget_test.dart
 ```
 

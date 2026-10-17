@@ -64,6 +64,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get startGame => 'Spiel starten';
 
   @override
+  String get generatingWord => 'Wort wird generiert…';
+
+  @override
+  String get aiUnavailable =>
+      'KI nicht verfügbar – es wird ein Standardwort verwendet.';
+
+  @override
   String playerNumber(int number) {
     return 'Spieler $number';
   }

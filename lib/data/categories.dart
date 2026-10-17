@@ -246,4 +246,55 @@ const List<Category> kCategories = [
       Term(de: 'Reiseführer', en: 'Travel guide', hintDe: 'Sehenswürdigkeiten', hintEn: 'Sights'),
     ],
   ),
+  // ── Dynamic categories ───────────────────────────────────────────────
+  // These generate their secret word + hint via the OpenAI API. The bundled
+  // terms below are only a fallback for when the API is unavailable.
+  Category(
+    id: 'years2000',
+    nameDe: '2000er',
+    nameEn: '2000s',
+    emoji: '📟',
+    promptDe: 'ein Begriff, der typisch für die 2000er Jahre ist '
+        '(Popkultur, Technik, Trends und Ereignisse der 2000er)',
+    promptEn: 'a term typical of the 2000s '
+        '(pop culture, technology, trends and events of the 2000s)',
+    terms: [
+      Term(de: 'Klapphandy', en: 'Flip phone', hintDe: 'Tasten', hintEn: 'Keypad'),
+      Term(de: 'iPod', en: 'iPod', hintDe: 'Musik', hintEn: 'Music'),
+      Term(de: 'MySpace', en: 'MySpace', hintDe: 'Profil', hintEn: 'Profile'),
+      Term(de: 'YouTube', en: 'YouTube', hintDe: 'Video', hintEn: 'Video'),
+      Term(de: 'Emoji', en: 'Emoji', hintDe: 'Smiley', hintEn: 'Smiley'),
+      Term(de: 'Reality-Show', en: 'Reality show', hintDe: 'Kamera', hintEn: 'Camera'),
+      Term(de: 'Flashmob', en: 'Flash mob', hintDe: 'Menschenmenge', hintEn: 'Crowd'),
+      Term(de: 'DVD', en: 'DVD', hintDe: 'Disc', hintEn: 'Disc'),
+      Term(de: 'MP3-Player', en: 'MP3 player', hintDe: 'Kopfhörer', hintEn: 'Headphones'),
+      Term(de: 'Bluetooth', en: 'Bluetooth', hintDe: 'Kabellos', hintEn: 'Wireless'),
+      Term(de: 'Webcam', en: 'Webcam', hintDe: 'Videochat', hintEn: 'Video call'),
+      Term(de: 'Tamagotchi', en: 'Tamagotchi', hintDe: 'Haustier', hintEn: 'Pet'),
+    ],
+  ),
+  Category(
+    id: 'modern',
+    nameDe: 'Neuzeit',
+    nameEn: 'Modern era',
+    emoji: '🤖',
+    promptDe: 'ein Begriff aus der Neuzeit / Gegenwart '
+        '(aktuelle Popkultur, moderne Technik und Trends von heute)',
+    promptEn: 'a term from the modern era / present day '
+        '(current pop culture, modern technology and today\'s trends)',
+    terms: [
+      Term(de: 'Smartwatch', en: 'Smartwatch', hintDe: 'Handgelenk', hintEn: 'Wrist'),
+      Term(de: 'Streaming', en: 'Streaming', hintDe: 'Serie', hintEn: 'Series'),
+      Term(de: 'Influencer', en: 'Influencer', hintDe: 'Follower', hintEn: 'Followers'),
+      Term(de: 'Podcast', en: 'Podcast', hintDe: 'Folge', hintEn: 'Episode'),
+      Term(de: 'E-Scooter', en: 'E-scooter', hintDe: 'Akku', hintEn: 'Battery'),
+      Term(de: 'Cloud', en: 'Cloud', hintDe: 'Speicher', hintEn: 'Storage'),
+      Term(de: 'KI', en: 'AI', hintDe: 'Algorithmus', hintEn: 'Algorithm'),
+      Term(de: 'Meme', en: 'Meme', hintDe: 'Internetwitz', hintEn: 'Internet joke'),
+      Term(de: 'Videocall', en: 'Video call', hintDe: 'Webcam', hintEn: 'Webcam'),
+      Term(de: 'Krypto', en: 'Crypto', hintDe: 'Blockchain', hintEn: 'Blockchain'),
+      Term(de: 'Hashtag', en: 'Hashtag', hintDe: 'Raute', hintEn: 'Hash'),
+      Term(de: 'Vegan', en: 'Vegan', hintDe: 'Pflanze', hintEn: 'Plant'),
+    ],
+  ),
 ];

@@ -64,6 +64,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get startGame => 'Start game';
 
   @override
+  String get generatingWord => 'Generating word…';
+
+  @override
+  String get aiUnavailable => 'AI unavailable – using a standard word instead.';
+
+  @override
   String playerNumber(int number) {
     return 'Player $number';
   }

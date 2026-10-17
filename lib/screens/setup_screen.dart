@@ -5,7 +5,9 @@ import '../l10n/app_localizations.dart';
 import '../models/app_language.dart';
 import '../models/category.dart';
 import '../models/game_settings.dart';
+import '../services/config_service.dart';
 import '../services/game_engine.dart';
+import '../services/term_generator.dart';
 import '../theme/app_theme.dart';
 import 'reveal_screen.dart';
 
@@ -162,7 +164,42 @@ class _SetupScreenState extends State<SetupScreen> {
           : Duration(minutes: _discussionMinutes),
       showImposterHint: _showImposterHint,
     );
+
+    if (_selectedCategory.isDynamic) {
+      _startDynamic(settings);
+      return;
+    }
+
     final round = GameEngine().createRound(settings);
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => RevealScreen(round: round)),
+    );
+  }
+
+  /// Starts a round for a dynamic category: generates the word + hint via the
+  /// OpenAI API (with a fallback to the category's static words) first.
+  Future<void> _startDynamic(GameSettings settings) async {
+    final l10n = AppLocalizations.of(context)!;
+
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => _GeneratingDialog(message: l10n.generatingWord),
+    );
+
+    final apiKey = await const ConfigService().loadOpenAiApiKey();
+    final generator = TermGenerator(apiKey: apiKey);
+    final result = await generator.generate(settings.category);
+
+    if (!mounted) return;
+    Navigator.of(context).pop(); // close the loading dialog
+    if (result.fromFallback) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.aiUnavailable)),
+      );
+    }
+
+    final round = GameEngine().createRound(settings, term: result.term);
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => RevealScreen(round: round)),
     );
@@ -193,29 +230,54 @@ class _CategoryTile extends StatelessWidget {
           width: 2,
         ),
       ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(category.emoji, style: const TextStyle(fontSize: 26)),
-              const SizedBox(height: 6),
-              Text(
-                category.name(language),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
+      child: Stack(
+        children: [
+          InkWell(
+            borderRadius: BorderRadius.circular(16),
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(category.emoji, style: const TextStyle(fontSize: 26)),
+                  const SizedBox(height: 6),
+                  Text(
+                    category.name(language),
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          if (category.isDynamic)
+            Positioned(
+              top: 6,
+              right: 6,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: AppTheme.accent,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Text(
+                  'AI',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-            ],
-          ),
-        ),
+            ),
+        ],
       ),
     );
   }
@@ -312,6 +374,25 @@ class _OptionChip extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _GeneratingDialog extends StatelessWidget {
+  const _GeneratingDialog({required this.message});
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          const SizedBox(width: 20),
+          Expanded(child: Text(message)),
+        ],
       ),
     );
   }

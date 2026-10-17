@@ -15,6 +15,8 @@
   "minutes": "Min.",
   "showImposterHint": "Hinweis für den Imposter anzeigen",
   "startGame": "Spiel starten",
+  "generatingWord": "Wort wird generiert…",
+  "aiUnavailable": "KI nicht verfügbar – es wird ein Standardwort verwendet.",
 
   "playerNumber": "Spieler {number}",
   "passDeviceTo": "Gerät übergeben an",

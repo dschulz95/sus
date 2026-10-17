@@ -21,6 +21,8 @@
   "minutes": "min",
   "showImposterHint": "Show hint for the imposter",
   "startGame": "Start game",
+  "generatingWord": "Generating word…",
+  "aiUnavailable": "AI unavailable – using a standard word instead.",
 
   "playerNumber": "Player {number}",
   "@playerNumber": {

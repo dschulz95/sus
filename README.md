@@ -52,6 +52,8 @@ flutter test
 
 The "2000s" and "Modern era" categories generate a new secret word + hint for
 every round using the OpenAI API instead of a fixed word list.
+The app asks the model to avoid words it already generated in the current
+session, and rejects any hint that gives away the secret word.
 
 1. Copy the template to a local config file (this file is git-ignored):
    ```bash
@@ -62,8 +64,9 @@ every round using the OpenAI API instead of a fixed word list.
    { "openai_api_key": "sk-..." }
    ```
 
-If no key is configured or the API is unreachable, the game automatically falls
-back to the category's built-in word list, so it stays playable offline.
+If no key is configured, the API is unreachable, or the response is invalid,
+the game automatically falls back to the category's built-in word list, so it
+stays playable offline.
 
 ## Project structure
 

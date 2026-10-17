@@ -182,6 +182,18 @@ abstract class AppLocalizations {
   /// **'Show hint for the imposter'**
   String get showImposterHint;
 
+  /// No description provided for @playerNames.
+  ///
+  /// In en, this message translates to:
+  /// **'Player names'**
+  String get playerNames;
+
+  /// No description provided for @playerNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter name'**
+  String get playerNameHint;
+
   /// No description provided for @startGame.
   ///
   /// In en, this message translates to:

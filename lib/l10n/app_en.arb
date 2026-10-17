@@ -20,6 +20,8 @@
   "discussionOff": "Off",
   "minutes": "min",
   "showImposterHint": "Show hint for the imposter",
+  "playerNames": "Player names",
+  "playerNameHint": "Enter name",
   "startGame": "Start game",
   "generatingWord": "Generating word…",
   "aiUnavailable": "AI unavailable – using a standard word instead.",

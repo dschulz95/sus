@@ -38,6 +38,27 @@ void main() {
       final numbers = round.players.map((p) => p.number).toSet();
       expect(numbers.length, 10);
     });
+
+    test('assigns names to the matching player numbers', () {
+      final engine = GameEngine(Random(1));
+      final named = GameSettings(
+        category: kCategories.first,
+        playerCount: 4,
+        imposterCount: 1,
+        playerNames: const ['Anna', 'Ben', 'Cara', 'Dan'],
+      );
+      final round = engine.createRound(named);
+
+      for (final player in round.players) {
+        expect(player.name, named.playerNames[player.number - 1]);
+      }
+    });
+
+    test('leaves names empty when none are provided', () {
+      final engine = GameEngine(Random(1));
+      final round = engine.createRound(settings(playerCount: 5));
+      expect(round.players.every((p) => p.name.isEmpty), isTrue);
+    });
   });
 
   group('determineOutcome', () {

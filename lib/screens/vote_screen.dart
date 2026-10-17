@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
 import '../models/game_round.dart';
+import '../models/player.dart';
 import '../theme/app_theme.dart';
 import 'result_screen.dart';
 
@@ -19,12 +20,14 @@ class VoteScreen extends StatelessWidget {
     );
   }
 
-  void _confirmVote(BuildContext context, int number) {
+  void _confirmVote(BuildContext context, Player player) {
     final l10n = AppLocalizations.of(context)!;
+    final label =
+        player.name.isNotEmpty ? player.name : l10n.playerNumber(player.number);
     showDialog<void>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: Text(l10n.confirmVoteQuestion(l10n.playerNumber(number))),
+        title: Text(l10n.confirmVoteQuestion(label)),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
@@ -33,7 +36,7 @@ class VoteScreen extends StatelessWidget {
           FilledButton(
             onPressed: () {
               Navigator.of(dialogContext).pop();
-              _goToResult(context, number);
+              _goToResult(context, player.number);
             },
             child: Text(l10n.confirm),
           ),
@@ -68,20 +71,23 @@ class VoteScreen extends StatelessWidget {
                   separatorBuilder: (_, __) => const SizedBox(height: 12),
                   itemBuilder: (context, index) {
                     final player = round.players[index];
+                    final label = player.name.isNotEmpty
+                        ? player.name
+                        : l10n.playerNumber(player.number);
                     return Card(
                       color: AppTheme.card,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: ListTile(
-                        onTap: () => _confirmVote(context, player.number),
+                        onTap: () => _confirmVote(context, player),
                         leading: CircleAvatar(
                           backgroundColor: AppTheme.cardSelected,
                           foregroundColor: Colors.white,
                           child: Text('${player.number}'),
                         ),
                         title: Text(
-                          l10n.playerNumber(player.number),
+                          label,
                           style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
                         trailing: const Icon(Icons.chevron_right),

@@ -29,20 +29,32 @@ class GameEngine {
     return GameRound(
       settings: settings,
       term: term ?? _pickTerm(settings.category),
-      players: _assignRoles(settings.playerCount, settings.imposterCount),
+      players: _assignRoles(
+        settings.playerCount,
+        settings.imposterCount,
+        settings.playerNames,
+      ),
     );
   }
 
   Term _pickTerm(Category category) =>
       category.terms[_random.nextInt(category.terms.length)];
 
-  List<Player> _assignRoles(int playerCount, int imposterCount) {
+  List<Player> _assignRoles(
+    int playerCount,
+    int imposterCount,
+    List<String> names,
+  ) {
     final indices = List<int>.generate(playerCount, (i) => i);
     indices.shuffle(_random);
     final imposterSet = indices.take(imposterCount).toSet();
     return List<Player>.generate(
       playerCount,
-      (i) => Player(number: i + 1, isImposter: imposterSet.contains(i)),
+      (i) => Player(
+        number: i + 1,
+        name: i < names.length ? names[i] : '',
+        isImposter: imposterSet.contains(i),
+      ),
     );
   }
 }

@@ -8,7 +8,7 @@ imposters try to blend in without knowing the word.
 
 ## How to play
 
-1. Choose a **category** and the **number of players** (4–12).
+1. Choose a **category** and the **number of players** (3–12).
 2. Decide whether **1 or 2** players are the imposters.
 3. Each player secretly reveals their card:
    - **Crewmates** see the secret word.
@@ -24,7 +24,7 @@ Crewmates win by catching an imposter; the imposter wins by staying hidden.
   - Every category generates a fresh secret word + hint for every round via the
     OpenAI API
   - Each category keeps a fixed word list as an offline fallback
-- 4–12 players, 1 or 2 imposters
+- 3–12 players, 1 or 2 imposters
 - Optional discussion timer (off / 2 / 3 / 5 min)
 - Optional hint word for imposters (on / off)
 - Pass-the-device reveal flow with private cards

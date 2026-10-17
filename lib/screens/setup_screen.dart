@@ -19,7 +19,7 @@ class SetupScreen extends StatefulWidget {
 }
 
 class _SetupScreenState extends State<SetupScreen> {
-  static const int _minPlayers = 4;
+  static const int _minPlayers = 3;
   static const int _maxPlayers = 12;
   static const List<int> _timeOptions = [0, 2, 3, 5];
 
@@ -29,7 +29,19 @@ class _SetupScreenState extends State<SetupScreen> {
   int _discussionMinutes = 3;
   bool _showImposterHint = true;
 
+  /// Name inputs, one per player slot. Slots beyond [_playerCount] are hidden.
+  final List<TextEditingController> _nameControllers =
+      List.generate(_maxPlayers, (_) => TextEditingController());
+
   int get _maxImposters => _playerCount >= 6 ? 2 : 1;
+
+  @override
+  void dispose() {
+    for (final controller in _nameControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +88,27 @@ class _SetupScreenState extends State<SetupScreen> {
                 }
               }),
             ),
+            const SizedBox(height: 24),
+            _sectionTitle(context, l10n.playerNames),
+            for (var i = 0; i < _playerCount; i++)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: TextField(
+                  controller: _nameControllers[i],
+                  textCapitalization: TextCapitalization.words,
+                  decoration: InputDecoration(
+                    labelText: l10n.playerNumber(i + 1),
+                    hintText: l10n.playerNameHint,
+                    prefixIcon: const Icon(Icons.person_outline),
+                    filled: true,
+                    fillColor: AppTheme.card,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ),
             const SizedBox(height: 24),
             _sectionTitle(context, l10n.numberOfImposters),
             Row(
@@ -154,6 +187,11 @@ class _SetupScreenState extends State<SetupScreen> {
         ),
       );
 
+  List<String> _collectNames() => [
+        for (var i = 0; i < _playerCount; i++)
+          _nameControllers[i].text.trim(),
+      ];
+
   void _start() {
     final settings = GameSettings(
       category: _selectedCategory,
@@ -163,6 +201,7 @@ class _SetupScreenState extends State<SetupScreen> {
           ? Duration.zero
           : Duration(minutes: _discussionMinutes),
       showImposterHint: _showImposterHint,
+      playerNames: _collectNames(),
     );
 
     if (_selectedCategory.isDynamic) {

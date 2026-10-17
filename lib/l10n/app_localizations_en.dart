@@ -61,6 +61,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get showImposterHint => 'Show hint for the imposter';
 
   @override
+  String get playerNames => 'Player names';
+
+  @override
+  String get playerNameHint => 'Enter name';
+
+  @override
   String get startGame => 'Start game';
 
   @override

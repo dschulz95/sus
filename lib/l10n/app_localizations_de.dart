@@ -61,6 +61,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get showImposterHint => 'Hinweis für den Imposter anzeigen';
 
   @override
+  String get playerNames => 'Spielernamen';
+
+  @override
+  String get playerNameHint => 'Name eingeben';
+
+  @override
   String get startGame => 'Spiel starten';
 
   @override

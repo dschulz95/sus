@@ -231,6 +231,7 @@ class _CategoryTile extends StatelessWidget {
         ),
       ),
       child: Stack(
+        fit: StackFit.expand,
         children: [
           InkWell(
             borderRadius: BorderRadius.circular(16),

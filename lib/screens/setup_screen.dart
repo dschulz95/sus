@@ -84,7 +84,7 @@ class _SetupScreenState extends State<SetupScreen> {
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                childAspectRatio: 1.05,
+                childAspectRatio: 0.95,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
               ),

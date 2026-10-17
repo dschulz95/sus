@@ -140,8 +140,12 @@ class TermGenerator {
   static bool _overlaps(String word, String hint) {
     final w = word.toLowerCase();
     final h = hint.toLowerCase();
-    return w.contains(h) || h.contains(w);
+    return _reveals(w, h) || _reveals(h, w);
   }
+
+  static bool _reveals(String part, String whole) =>
+      whole.contains(part) &&
+      (part.length >= 4 || whole.split(RegExp(r'[\s-]+')).contains(part));
 
   /// Removes a surrounding ```json … ``` code fence if the model added one.
   String _stripCodeFence(String content) {

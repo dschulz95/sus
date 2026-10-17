@@ -116,6 +116,39 @@ void main() {
       expect(dynamicCategory.terms, contains(result.term));
     });
 
+    test('accepts a hint that merely contains a short word', () async {
+      final client = MockClient((_) async => termResponse({
+            'wordDe': 'KI',
+            'wordEn': 'AI',
+            'hintDe': 'Skizze',
+            'hintEn': 'Training',
+          }));
+      final generator = TermGenerator(apiKey: 'sk-test', client: client);
+
+      final result = await generator.generate(dynamicCategory);
+
+      expect(result.fromFallback, isFalse);
+      expect(result.term.en, 'AI');
+      expect(result.term.hintEn, 'Training');
+    });
+
+    test('falls back when a short word is a whole token of the hint',
+        () async {
+      final client = MockClient((_) async => termResponse({
+            'wordDe': 'KI',
+            'wordEn': 'AI',
+            'hintDe': 'Roboter',
+            'hintEn': 'AI art',
+          }));
+      final generator =
+          TermGenerator(apiKey: 'sk-test', client: client, random: Random(1));
+
+      final result = await generator.generate(dynamicCategory);
+
+      expect(result.fromFallback, isTrue);
+      expect(dynamicCategory.terms, contains(result.term));
+    });
+
     test('asks the AI to avoid words it generated before', () async {
       final prompts = <String>[];
       final words = ['Flip phone', 'MP3 player'];

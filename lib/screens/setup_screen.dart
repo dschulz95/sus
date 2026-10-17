@@ -11,6 +11,9 @@ import '../services/term_generator.dart';
 import '../theme/app_theme.dart';
 import 'reveal_screen.dart';
 
+/// Shared across rounds so the generator can avoid repeating recent words.
+TermGenerator? _sessionGenerator;
+
 class SetupScreen extends StatefulWidget {
   const SetupScreen({super.key});
 
@@ -186,8 +189,9 @@ class _SetupScreenState extends State<SetupScreen> {
       builder: (_) => _GeneratingDialog(message: l10n.generatingWord),
     );
 
-    final apiKey = await const ConfigService().loadOpenAiApiKey();
-    final generator = TermGenerator(apiKey: apiKey);
+    final generator = _sessionGenerator ??= TermGenerator(
+      apiKey: await const ConfigService().loadOpenAiApiKey(),
+    );
     final result = await generator.generate(settings.category);
 
     if (!mounted) return;

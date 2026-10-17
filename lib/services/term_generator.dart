@@ -34,8 +34,12 @@ class TermGenerator {
   final http.Client _client;
   final Random _random;
 
+  /// Recently generated English words per category id, oldest first.
+  final Map<String, List<String>> _recentWords = {};
+
   static const _endpoint = 'https://api.openai.com/v1/chat/completions';
   static const _timeout = Duration(seconds: 20);
+  static const _maxRecentWords = 30;
 
   bool get isConfigured => apiKey != null && apiKey!.isNotEmpty;
 
@@ -48,7 +52,9 @@ class TermGenerator {
       return GeneratedTerm(_pickFallback(category), fromFallback: true);
     }
     try {
-      return GeneratedTerm(await _requestTerm(category));
+      final term = await _requestTerm(category);
+      _remember(category, term);
+      return GeneratedTerm(term);
     } catch (_) {
       return GeneratedTerm(_pickFallback(category), fromFallback: true);
     }
@@ -83,6 +89,21 @@ class TermGenerator {
     return _parseTerm(message['content'] as String);
   }
 
+  void _remember(Category category, Term term) {
+    final recent = _recentWords.putIfAbsent(category.id, () => []);
+    recent.add(term.en);
+    if (recent.length > _maxRecentWords) {
+      recent.removeAt(0);
+    }
+  }
+
+  String _avoidInstruction(Category category) {
+    final recent = _recentWords[category.id] ?? const [];
+    if (recent.isEmpty) return '';
+    return '\nDo not use any of these previously used words or their '
+        'translations: ${recent.join(', ')}.';
+  }
+
   Map<String, dynamic> _buildBody(Category category) => {
         'model': model,
         'temperature': 1.0,
@@ -95,7 +116,8 @@ class TermGenerator {
                 '${category.promptDe}\n'
                 'Category (English): ${category.nameEn} — '
                 '${category.promptEn}\n'
-                'Generate exactly one secret word and one hint for this category.',
+                'Generate exactly one secret word and one hint for this category.'
+                '${_avoidInstruction(category)}',
           },
         ],
       };
@@ -109,7 +131,16 @@ class TermGenerator {
     if (wordDe.isEmpty || wordEn.isEmpty || hintDe.isEmpty || hintEn.isEmpty) {
       throw const FormatException('OpenAI returned an incomplete term');
     }
+    if (_overlaps(wordDe, hintDe) || _overlaps(wordEn, hintEn)) {
+      throw const FormatException('OpenAI returned a hint revealing the word');
+    }
     return Term(de: wordDe, en: wordEn, hintDe: hintDe, hintEn: hintEn);
+  }
+
+  static bool _overlaps(String word, String hint) {
+    final w = word.toLowerCase();
+    final h = hint.toLowerCase();
+    return w.contains(h) || h.contains(w);
   }
 
   /// Removes a surrounding ```json … ``` code fence if the model added one.

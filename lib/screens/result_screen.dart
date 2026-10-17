@@ -24,9 +24,8 @@ class ResultScreen extends StatelessWidget {
     final lang = appLanguageOf(context);
     final outcome = determineOutcome(round, votedOutNumber);
 
-    final imposterNames = round.imposters
-        .map((p) => l10n.playerNumber(p.number))
-        .join(', ');
+    final imposterNames =
+        round.imposters.map((p) => l10n.playerNumber(p.number)).join(', ');
 
     return Scaffold(
       appBar: AppBar(

@@ -5,8 +5,7 @@ import 'package:imposter_game/screens/setup_screen.dart';
 import 'package:imposter_game/theme/app_theme.dart';
 
 void main() {
-  testWidgets('tapping anywhere on a category tile selects it',
-      (tester) async {
+  testWidgets('tapping anywhere on a category tile selects it', (tester) async {
     await tester.pumpWidget(MaterialApp(
       theme: AppTheme.dark,
       locale: const Locale('en'),
@@ -24,7 +23,8 @@ void main() {
 
     // Tile content stays centred on the card.
     final rect = tester.getRect(travelCard);
-    expect(tester.getCenter(find.text('Travel')).dx, closeTo(rect.center.dx, 1));
+    expect(
+        tester.getCenter(find.text('Travel')).dx, closeTo(rect.center.dx, 1));
 
     // Tap near the bottom-right of the tile, outside the emoji and label.
     await tester.tapAt(rect.bottomRight - const Offset(12, 12));

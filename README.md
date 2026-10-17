@@ -82,6 +82,7 @@ assets/
   config.example.json   # template for the OpenAI API key (git-ignored real file: config.json)
 test/
   game_engine_test.dart
+  setup_screen_test.dart
   term_generator_test.dart
   widget_test.dart
 ```

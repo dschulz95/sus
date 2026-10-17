@@ -52,7 +52,8 @@ void main() {
       final engine = GameEngine(Random(6));
       final round = engine.createRound(settings());
       final crewmate = round.crewmates.first;
-      expect(determineOutcome(round, crewmate.number), GameOutcome.impostersWin);
+      expect(
+          determineOutcome(round, crewmate.number), GameOutcome.impostersWin);
     });
 
     test('noVote when nobody is voted out', () {

@@ -120,8 +120,7 @@ class _SetupScreenState extends State<SetupScreen> {
               ),
               child: SwitchListTile(
                 value: _showImposterHint,
-                onChanged: (value) =>
-                    setState(() => _showImposterHint = value),
+                onChanged: (value) => setState(() => _showImposterHint = value),
                 title: Text(
                   l10n.showImposterHint,
                   style: const TextStyle(fontWeight: FontWeight.w600),
@@ -262,8 +261,7 @@ class _CategoryTile extends StatelessWidget {
               top: 6,
               right: 6,
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: AppTheme.accent,
                   borderRadius: BorderRadius.circular(8),

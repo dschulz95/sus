@@ -94,10 +94,7 @@ class _DiscussionScreenState extends State<DiscussionScreen> {
                 Text(
                   _format(_remaining),
                   textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayLarge
-                      ?.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
                         fontWeight: FontWeight.w800,
                         color: AppTheme.accent,
                       ),

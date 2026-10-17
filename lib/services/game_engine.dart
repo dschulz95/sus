@@ -52,7 +52,6 @@ class GameEngine {
 /// Passing `null` means the vote was skipped (no elimination).
 GameOutcome determineOutcome(GameRound round, int? votedOutNumber) {
   if (votedOutNumber == null) return GameOutcome.noVote;
-  final accused =
-      round.players.firstWhere((p) => p.number == votedOutNumber);
+  final accused = round.players.firstWhere((p) => p.number == votedOutNumber);
   return accused.isImposter ? GameOutcome.crewWins : GameOutcome.impostersWin;
 }

@@ -13,6 +13,7 @@
   "discussionTime": "Diskussionszeit",
   "discussionOff": "Aus",
   "minutes": "Min.",
+  "showImposterHint": "Hinweis für den Imposter anzeigen",
   "startGame": "Spiel starten",
 
   "playerNumber": "Spieler {number}",
@@ -23,6 +24,8 @@
   "theWordIs": "Das Wort ist",
   "youAreImposter": "Du bist der Imposter!",
   "imposterHint": "Du kennst das Wort nicht. Gib dich als Crewmitglied aus und finde heraus, was die anderen beschreiben.",
+  "hintWord": "Dein Hinweis",
+  "imposterHintOn": "Nutze diesen Hinweis, um dich einzufügen und das Wort zu erraten.",
   "hideAndContinue": "Verbergen & weiter",
   "startDiscussion": "Diskussion starten",
 

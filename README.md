@@ -12,7 +12,7 @@ imposters try to blend in without knowing the word.
 2. Decide whether **1 or 2** players are the imposters.
 3. Each player secretly reveals their card:
    - **Crewmates** see the secret word.
-   - **Imposters** see nothing — they must blend in.
+   - **Imposters** see a hint word (optional) — they must blend in.
 4. Discuss the word without naming it.
 5. **Vote out** who you think the imposter is.
 
@@ -23,6 +23,7 @@ Crewmates win by catching an imposter; the imposter wins by staying hidden.
 - 12 bilingual categories (144 words) in **German & English**
 - 4–12 players, 1 or 2 imposters
 - Optional discussion timer (off / 2 / 3 / 5 min)
+- Optional hint word for imposters (on / off)
 - Pass-the-device reveal flow with private cards
 - Group vote and result screen
 - Dependency-light architecture with fully unit-tested game logic

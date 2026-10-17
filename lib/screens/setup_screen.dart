@@ -25,6 +25,7 @@ class _SetupScreenState extends State<SetupScreen> {
   int _playerCount = 6;
   int _imposterCount = 1;
   int _discussionMinutes = 3;
+  bool _showImposterHint = true;
 
   int get _maxImposters => _playerCount >= 6 ? 2 : 1;
 
@@ -109,6 +110,23 @@ class _SetupScreenState extends State<SetupScreen> {
                   ),
               ],
             ),
+            const SizedBox(height: 24),
+            Card(
+              color: AppTheme.card,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: SwitchListTile(
+                value: _showImposterHint,
+                onChanged: (value) =>
+                    setState(() => _showImposterHint = value),
+                title: Text(
+                  l10n.showImposterHint,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+                secondary: const Icon(Icons.lightbulb_outline),
+              ),
+            ),
             const SizedBox(height: 32),
             FilledButton(
               onPressed: _start,
@@ -142,6 +160,7 @@ class _SetupScreenState extends State<SetupScreen> {
       discussionDuration: _discussionMinutes == 0
           ? Duration.zero
           : Duration(minutes: _discussionMinutes),
+      showImposterHint: _showImposterHint,
     );
     final round = GameEngine().createRound(settings);
     Navigator.of(context).push(

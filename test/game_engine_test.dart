@@ -61,4 +61,27 @@ void main() {
       expect(determineOutcome(round, null), GameOutcome.noVote);
     });
   });
+
+  group('category data', () {
+    test('every term has a non-empty hint that differs from the word', () {
+      for (final category in kCategories) {
+        expect(category.terms, isNotEmpty);
+        for (final term in category.terms) {
+          expect(term.hintDe.trim(), isNotEmpty);
+          expect(term.hintEn.trim(), isNotEmpty);
+          expect(term.hintDe, isNot(term.de));
+          expect(term.hintEn, isNot(term.en));
+        }
+      }
+    });
+
+    test('terms within a category are unique', () {
+      for (final category in kCategories) {
+        final deWords = category.terms.map((t) => t.de).toSet();
+        final enWords = category.terms.map((t) => t.en).toSet();
+        expect(deWords.length, category.terms.length);
+        expect(enWords.length, category.terms.length);
+      }
+    });
+  });
 }

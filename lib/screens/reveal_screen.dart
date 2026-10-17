@@ -119,15 +119,33 @@ class _RevealScreenState extends State<RevealScreen> {
           value: widget.round.settings.category.name(lang),
         ),
         if (isImposter) ...[
-          const SizedBox(height: 24),
-          Text(
-            l10n.imposterHint,
-            textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge
-                ?.copyWith(color: Colors.white70),
-          ),
+          if (widget.round.settings.showImposterHint) ...[
+            const SizedBox(height: 12),
+            InfoCard(
+              label: l10n.hintWord,
+              value: widget.round.term.hint(lang),
+              emphasized: true,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              l10n.imposterHintOn,
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: Colors.white70),
+            ),
+          ] else ...[
+            const SizedBox(height: 24),
+            Text(
+              l10n.imposterHint,
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: Colors.white70),
+            ),
+          ],
         ] else ...[
           const SizedBox(height: 12),
           InfoCard(

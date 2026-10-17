@@ -9,10 +9,14 @@ class GameSettings {
   /// [Duration.zero] disables the discussion timer.
   final Duration discussionDuration;
 
+  /// Whether imposters see a hint word during the reveal phase.
+  final bool showImposterHint;
+
   const GameSettings({
     required this.category,
     required this.playerCount,
     required this.imposterCount,
     this.discussionDuration = const Duration(minutes: 3),
+    this.showImposterHint = true,
   });
 }

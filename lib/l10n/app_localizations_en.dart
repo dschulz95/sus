@@ -58,6 +58,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get minutes => 'min';
 
   @override
+  String get showImposterHint => 'Show hint for the imposter';
+
+  @override
   String get startGame => 'Start game';
 
   @override
@@ -86,6 +89,13 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get imposterHint =>
       'You don\'t know the word. Blend in and figure out what the others are describing.';
+
+  @override
+  String get hintWord => 'Your hint';
+
+  @override
+  String get imposterHintOn =>
+      'Use this clue to blend in and figure out the word.';
 
   @override
   String get hideAndContinue => 'Hide & continue';

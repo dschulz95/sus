@@ -176,6 +176,12 @@ abstract class AppLocalizations {
   /// **'min'**
   String get minutes;
 
+  /// No description provided for @showImposterHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Show hint for the imposter'**
+  String get showImposterHint;
+
   /// No description provided for @startGame.
   ///
   /// In en, this message translates to:
@@ -229,6 +235,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You don\'t know the word. Blend in and figure out what the others are describing.'**
   String get imposterHint;
+
+  /// No description provided for @hintWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Your hint'**
+  String get hintWord;
+
+  /// No description provided for @imposterHintOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this clue to blend in and figure out the word.'**
+  String get imposterHintOn;
 
   /// No description provided for @hideAndContinue.
   ///

@@ -58,6 +58,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get minutes => 'Min.';
 
   @override
+  String get showImposterHint => 'Hinweis für den Imposter anzeigen';
+
+  @override
   String get startGame => 'Spiel starten';
 
   @override
@@ -86,6 +89,13 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get imposterHint =>
       'Du kennst das Wort nicht. Gib dich als Crewmitglied aus und finde heraus, was die anderen beschreiben.';
+
+  @override
+  String get hintWord => 'Dein Hinweis';
+
+  @override
+  String get imposterHintOn =>
+      'Nutze diesen Hinweis, um dich einzufügen und das Wort zu erraten.';
 
   @override
   String get hideAndContinue => 'Verbergen & weiter';

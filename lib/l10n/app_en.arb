@@ -19,6 +19,7 @@
   "discussionTime": "Discussion time",
   "discussionOff": "Off",
   "minutes": "min",
+  "showImposterHint": "Show hint for the imposter",
   "startGame": "Start game",
 
   "playerNumber": "Player {number}",
@@ -34,6 +35,8 @@
   "theWordIs": "The word is",
   "youAreImposter": "You are the imposter!",
   "imposterHint": "You don't know the word. Blend in and figure out what the others are describing.",
+  "hintWord": "Your hint",
+  "imposterHintOn": "Use this clue to blend in and figure out the word.",
   "hideAndContinue": "Hide & continue",
   "startDiscussion": "Start discussion",
 

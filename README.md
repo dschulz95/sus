@@ -20,10 +20,10 @@ Crewmates win by catching an imposter; the imposter wins by staying hidden.
 
 ## Features
 
-- 14 bilingual categories in **German & English**
-  - 12 static categories with a fixed word list
-  - 2 **AI-generated** categories ("2000s" & "Modern era") that create a fresh
-    secret word + hint for every round via the OpenAI API
+- 14 bilingual categories in **German & English**, all **AI-generated**
+  - Every category generates a fresh secret word + hint for every round via the
+    OpenAI API
+  - Each category keeps a fixed word list as an offline fallback
 - 4–12 players, 1 or 2 imposters
 - Optional discussion timer (off / 2 / 3 / 5 min)
 - Optional hint word for imposters (on / off)
@@ -50,8 +50,10 @@ flutter test
 
 ## AI-generated categories (OpenAI)
 
-The "2000s" and "Modern era" categories generate a new secret word + hint for
-every round using the OpenAI API instead of a fixed word list.
+Every category generates a new secret word + hint for every round using the
+OpenAI API instead of a fixed word list. A category is AI-driven when it has an
+AI prompt configured; if a category has no prompt, its built-in word list is
+used directly.
 
 1. Copy the template to a local config file (this file is git-ignored):
    ```bash

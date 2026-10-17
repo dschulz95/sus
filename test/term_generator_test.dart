@@ -5,11 +5,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:imposter_game/data/categories.dart';
+import 'package:imposter_game/models/category.dart';
 import 'package:imposter_game/services/term_generator.dart';
 
 void main() {
   final dynamicCategory = kCategories.firstWhere((c) => c.isDynamic);
-  final staticCategory = kCategories.firstWhere((c) => !c.isDynamic);
+
+  // A hand-built static category (no AI prompt) to exercise the fallback path.
+  const staticCategory = Category(
+    id: 'test-static',
+    nameDe: 'Test',
+    nameEn: 'Test',
+    emoji: '❓',
+    terms: [
+      Term(de: 'Testwort', en: 'Test word', hintDe: 'Hinweis', hintEn: 'Hint'),
+    ],
+  );
 
   group('TermGenerator.generate', () {
     test('returns a fallback term when no API key is configured', () async {
@@ -73,8 +84,10 @@ void main() {
   });
 
   group('category data', () {
-    test('dynamic categories have prompts and fallback terms', () {
-      for (final category in kCategories.where((c) => c.isDynamic)) {
+    test('every category is dynamic with a prompt and fallback terms', () {
+      expect(kCategories, isNotEmpty);
+      for (final category in kCategories) {
+        expect(category.isDynamic, isTrue);
         expect(category.promptDe, isNotNull);
         expect(category.promptEn, isNotNull);
         expect(category.terms, isNotEmpty);

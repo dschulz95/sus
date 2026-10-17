@@ -5,12 +5,18 @@ import '../models/category.dart';
 /// Categories and terms are stored bilingually (German and English) and are
 /// localized at runtime using [AppLanguage]. Every term also carries a
 /// related hint word that imposters may see to help them blend in.
+///
+/// Every category also defines an AI [Category.promptDe]/[Category.promptEn],
+/// so each round generates a fresh secret word + hint via the OpenAI API. The
+/// [Category.terms] list is kept as a fallback for when AI is unavailable.
 const List<Category> kCategories = [
   Category(
     id: 'animals',
     nameDe: 'Tiere',
     nameEn: 'Animals',
     emoji: '🐾',
+    promptDe: 'ein Tier (ein allgemein bekanntes, konkretes Tier)',
+    promptEn: 'an animal (a well-known, concrete animal)',
     terms: [
       Term(de: 'Hund', en: 'Dog', hintDe: 'Leine', hintEn: 'Leash'),
       Term(de: 'Katze', en: 'Cat', hintDe: 'Miauen', hintEn: 'Meow'),
@@ -31,6 +37,9 @@ const List<Category> kCategories = [
     nameDe: 'Essen & Trinken',
     nameEn: 'Food & Drinks',
     emoji: '🍕',
+    promptDe: 'ein Lebensmittel oder Getränk '
+        '(ein allgemein bekanntes Gericht oder Lebensmittel)',
+    promptEn: 'a food or drink (a well-known dish or food item)',
     terms: [
       Term(de: 'Pizza', en: 'Pizza', hintDe: 'Italien', hintEn: 'Italy'),
       Term(de: 'Sushi', en: 'Sushi', hintDe: 'Stäbchen', hintEn: 'Chopsticks'),
@@ -51,6 +60,8 @@ const List<Category> kCategories = [
     nameDe: 'Berufe',
     nameEn: 'Professions',
     emoji: '💼',
+    promptDe: 'ein Beruf (ein allgemein bekannter Beruf)',
+    promptEn: 'a profession (a well-known job)',
     terms: [
       Term(de: 'Arzt', en: 'Doctor', hintDe: 'Stethoskop', hintEn: 'Stethoscope'),
       Term(de: 'Lehrer', en: 'Teacher', hintDe: 'Tafel', hintEn: 'Blackboard'),
@@ -71,6 +82,8 @@ const List<Category> kCategories = [
     nameDe: 'Orte',
     nameEn: 'Places',
     emoji: '🗺️',
+    promptDe: 'ein Ort (ein allgemein bekannter Ort oder eine Einrichtung)',
+    promptEn: 'a place (a well-known place or venue)',
     terms: [
       Term(de: 'Strand', en: 'Beach', hintDe: 'Sand', hintEn: 'Sand'),
       Term(de: 'Flughafen', en: 'Airport', hintDe: 'Startbahn', hintEn: 'Runway'),
@@ -91,6 +104,9 @@ const List<Category> kCategories = [
     nameDe: 'Gegenstände',
     nameEn: 'Objects',
     emoji: '🎒',
+    promptDe: 'ein alltäglicher Gegenstand '
+        '(ein bekanntes Objekt des Alltags)',
+    promptEn: 'an everyday object (a familiar household or daily item)',
     terms: [
       Term(de: 'Schlüssel', en: 'Key', hintDe: 'Schloss', hintEn: 'Lock'),
       Term(de: 'Smartphone', en: 'Smartphone', hintDe: 'Display', hintEn: 'Screen'),
@@ -111,6 +127,8 @@ const List<Category> kCategories = [
     nameDe: 'Sport',
     nameEn: 'Sports',
     emoji: '⚽',
+    promptDe: 'eine Sportart (eine allgemein bekannte Sportart)',
+    promptEn: 'a sport (a well-known sport)',
     terms: [
       Term(de: 'Fußball', en: 'Soccer', hintDe: 'Tor', hintEn: 'Goal'),
       Term(de: 'Basketball', en: 'Basketball', hintDe: 'Korb', hintEn: 'Hoop'),
@@ -131,6 +149,10 @@ const List<Category> kCategories = [
     nameDe: 'Natur',
     nameEn: 'Nature',
     emoji: '🌿',
+    promptDe: 'ein Begriff aus der Natur '
+        '(ein Naturphänomen oder Element der Natur)',
+    promptEn: 'a term from nature '
+        '(a natural phenomenon or element of nature)',
     terms: [
       Term(de: 'Wald', en: 'Forest', hintDe: 'Holz', hintEn: 'Wood'),
       Term(de: 'Berg', en: 'Mountain', hintDe: 'Gipfel', hintEn: 'Summit'),
@@ -151,6 +173,9 @@ const List<Category> kCategories = [
     nameDe: 'Technik',
     nameEn: 'Technology',
     emoji: '💻',
+    promptDe: 'ein technischer Begriff '
+        '(ein bekanntes technisches Gerät oder Konzept)',
+    promptEn: 'a technology term (a well-known device or concept)',
     terms: [
       Term(de: 'Computer', en: 'Computer', hintDe: 'Tastatur', hintEn: 'Keyboard'),
       Term(de: 'Roboter', en: 'Robot', hintDe: 'Maschine', hintEn: 'Machine'),
@@ -171,6 +196,10 @@ const List<Category> kCategories = [
     nameDe: 'Feste',
     nameEn: 'Celebrations',
     emoji: '🎉',
+    promptDe: 'ein Fest oder Feiertag '
+        '(ein allgemein bekannter Feiertag oder Anlass)',
+    promptEn: 'a celebration or holiday '
+        '(a well-known holiday or occasion)',
     terms: [
       Term(de: 'Geburtstag', en: 'Birthday', hintDe: 'Kuchen', hintEn: 'Cake'),
       Term(de: 'Weihnachten', en: 'Christmas', hintDe: 'Tannenbaum', hintEn: 'Christmas tree'),
@@ -191,6 +220,9 @@ const List<Category> kCategories = [
     nameDe: 'Hobbys',
     nameEn: 'Hobbies',
     emoji: '🎨',
+    promptDe: 'ein Hobby oder eine Freizeitaktivität '
+        '(eine allgemein bekannte Freizeitbeschäftigung)',
+    promptEn: 'a hobby or leisure activity (a well-known pastime)',
     terms: [
       Term(de: 'Malen', en: 'Painting', hintDe: 'Pinsel', hintEn: 'Brush'),
       Term(de: 'Fotografieren', en: 'Photography', hintDe: 'Kamera', hintEn: 'Camera'),
@@ -211,6 +243,10 @@ const List<Category> kCategories = [
     nameDe: 'Filme & Serien',
     nameEn: 'Movies & TV',
     emoji: '🎬',
+    promptDe: 'ein Begriff aus Filmen oder Serien '
+        '(ein bekanntes Genre oder Konzept aus Film und Fernsehen)',
+    promptEn: 'a term from movies or TV '
+        '(a well-known genre or concept from film and television)',
     terms: [
       Term(de: 'Horrorfilm', en: 'Horror movie', hintDe: 'Schrecken', hintEn: 'Scare'),
       Term(de: 'Komödie', en: 'Comedy', hintDe: 'Lachen', hintEn: 'Laughter'),
@@ -231,6 +267,10 @@ const List<Category> kCategories = [
     nameDe: 'Reisen',
     nameEn: 'Travel',
     emoji: '✈️',
+    promptDe: 'ein Begriff rund ums Reisen '
+        '(ein bekanntes Reiseziel oder ein Gegenstand zum Reisen)',
+    promptEn: 'a travel-related term '
+        '(a well-known destination or travel item)',
     terms: [
       Term(de: 'Flugzeug', en: 'Airplane', hintDe: 'Himmel', hintEn: 'Sky'),
       Term(de: 'Zug', en: 'Train', hintDe: 'Schienen', hintEn: 'Rails'),
@@ -247,8 +287,9 @@ const List<Category> kCategories = [
     ],
   ),
   // ── Dynamic categories ───────────────────────────────────────────────
-  // These generate their secret word + hint via the OpenAI API. The bundled
-  // terms below are only a fallback for when the API is unavailable.
+  // Every category above carries an AI prompt, so it generates a fresh secret
+  // word + hint via the OpenAI API. The bundled terms below (and above) are
+  // only a fallback for when the API is unavailable or unconfigured.
   Category(
     id: 'years2000',
     nameDe: '2000er',

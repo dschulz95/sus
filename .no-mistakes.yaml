@@ -1,0 +1,7 @@
+# Per-repo no-mistakes overrides for the SUS (Imposter Game) Flutter app.
+# Pins the canonical lint and test commands so the local pipeline and the
+# generated CI workflow run the same checks.
+
+commands:
+  lint: 'flutter analyze'
+  test: 'flutter test'

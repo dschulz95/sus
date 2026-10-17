@@ -1,0 +1,71 @@
+{
+  "@@locale": "en",
+  "appTitle": "Imposter",
+  "appSubtitle": "The word game with hidden imposters",
+  "newGame": "New game",
+  "howToPlay": "How to play",
+  "language": "Language",
+
+  "chooseCategory": "Choose a category",
+  "numberOfPlayers": "Number of players",
+  "players": "{count} players",
+  "@players": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "numberOfImposters": "Number of imposters",
+  "impostersCount": "{count, plural, one{1 imposter} other{{count} imposters}}",
+  "discussionTime": "Discussion time",
+  "discussionOff": "Off",
+  "minutes": "min",
+  "startGame": "Start game",
+
+  "playerNumber": "Player {number}",
+  "@playerNumber": {
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+  "passDeviceTo": "Pass the device to",
+  "tapToReveal": "Tap to reveal the card",
+  "revealCard": "Reveal card",
+  "youAreCrew": "You are a crewmate",
+  "theWordIs": "The word is",
+  "youAreImposter": "You are the imposter!",
+  "imposterHint": "You don't know the word. Blend in and figure out what the others are describing.",
+  "hideAndContinue": "Hide & continue",
+  "startDiscussion": "Start discussion",
+
+  "discussionTitle": "Discussion",
+  "categoryLabel": "Category",
+  "timeLeft": "Time left",
+  "goToVote": "Go to vote",
+
+  "voteTitle": "Who is the imposter?",
+  "voteHint": "Discuss together and select the player you want to vote out.",
+  "voteOut": "Vote out",
+  "confirmVoteQuestion": "Vote out {player}?",
+  "@confirmVoteQuestion": {
+    "placeholders": {
+      "player": {"type": "String"}
+    }
+  },
+  "confirm": "Confirm",
+  "cancel": "Cancel",
+  "skipVote": "Skip vote",
+
+  "resultTitle": "Result",
+  "theWordWas": "The word was",
+  "impostersWere": "The imposter(s)",
+  "votedOut": "voted out",
+  "crewWon": "The crew wins!",
+  "impostersWin": "{count, plural, one{The imposter wins!} other{The imposters win!}}",
+  "noOneVotedOut": "No one was voted out",
+  "playAgain": "Play again",
+  "backToHome": "Home",
+
+  "rulesTitle": "How to play",
+  "rulesBody": "1. Choose a category and the number of players.\n2. One or two players secretly become imposters.\n3. Everyone except the imposters sees the same secret word.\n4. Take turns describing the word without saying it.\n5. Vote out who you think the imposter is.\n\nCrewmates win by catching the imposter. The imposter wins by blending in.",
+  "close": "Close"
+}

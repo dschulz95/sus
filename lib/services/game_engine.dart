@@ -1,0 +1,54 @@
+import 'dart:math';
+
+import '../models/category.dart';
+import '../models/game_round.dart';
+import '../models/game_settings.dart';
+import '../models/player.dart';
+
+/// The outcome of a vote.
+enum GameOutcome { crewWins, impostersWin, noVote }
+
+/// Pure game logic. Has no Flutter dependencies and is fully unit-testable.
+class GameEngine {
+  final Random _random;
+
+  /// Pass a seeded [Random] for deterministic tests.
+  GameEngine([Random? random]) : _random = random ?? Random();
+
+  /// Deals a random secret word and assigns imposter roles for a new round.
+  GameRound createRound(GameSettings settings) {
+    assert(
+      settings.imposterCount >= 1 &&
+          settings.imposterCount < settings.playerCount,
+      'There must be at least one imposter and fewer imposters than players.',
+    );
+    return GameRound(
+      settings: settings,
+      term: _pickTerm(settings.category),
+      players: _assignRoles(settings.playerCount, settings.imposterCount),
+    );
+  }
+
+  Term _pickTerm(Category category) =>
+      category.terms[_random.nextInt(category.terms.length)];
+
+  List<Player> _assignRoles(int playerCount, int imposterCount) {
+    final indices = List<int>.generate(playerCount, (i) => i);
+    indices.shuffle(_random);
+    final imposterSet = indices.take(imposterCount).toSet();
+    return List<Player>.generate(
+      playerCount,
+      (i) => Player(number: i + 1, isImposter: imposterSet.contains(i)),
+    );
+  }
+}
+
+/// Determines who won based on the player that was voted out.
+///
+/// Passing `null` means the vote was skipped (no elimination).
+GameOutcome determineOutcome(GameRound round, int? votedOutNumber) {
+  if (votedOutNumber == null) return GameOutcome.noVote;
+  final accused =
+      round.players.firstWhere((p) => p.number == votedOutNumber);
+  return accused.isImposter ? GameOutcome.crewWins : GameOutcome.impostersWin;
+}

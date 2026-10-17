@@ -145,7 +145,9 @@ class TermGenerator {
 
   static bool _reveals(String part, String whole) =>
       whole.contains(part) &&
-      (part.length >= 4 || whole.split(RegExp(r'[\s-]+')).contains(part));
+      (part.length >= 4 || whole.split(_tokenSeparator).contains(part));
+
+  static final _tokenSeparator = RegExp(r'[^\p{L}\p{N}]+', unicode: true);
 
   /// Removes a surrounding ```json … ``` code fence if the model added one.
   String _stripCodeFence(String content) {

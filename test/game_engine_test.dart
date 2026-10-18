@@ -59,6 +59,18 @@ void main() {
       final round = engine.createRound(settings(playerCount: 5));
       expect(round.players.every((p) => p.name.isEmpty), isTrue);
     });
+
+    test('assigns a starting player from the round', () {
+      final engine = GameEngine(Random(1));
+      final round = engine.createRound(settings(playerCount: 6));
+      expect(round.players, contains(round.startingPlayer));
+    });
+
+    test('starting player is deterministic for a seeded engine', () {
+      final first = GameEngine(Random(42)).createRound(settings());
+      final second = GameEngine(Random(42)).createRound(settings());
+      expect(first.startingPlayer.number, second.startingPlayer.number);
+    });
   });
 
   group('determineOutcome', () {

@@ -116,12 +116,7 @@ class ResultScreen extends StatelessWidget {
 
   void _playAgain(BuildContext context) {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) => SetupScreen(
-          initialPlayerNames: round.settings.playerNames,
-          initialPlayerCount: round.settings.playerCount,
-        ),
-      ),
+      MaterialPageRoute(builder: (_) => const SetupScreen()),
     );
   }
 

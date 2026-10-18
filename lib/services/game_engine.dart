@@ -26,14 +26,16 @@ class GameEngine {
           settings.imposterCount < settings.playerCount,
       'There must be at least one imposter and fewer imposters than players.',
     );
+    final players = _assignRoles(
+      settings.playerCount,
+      settings.imposterCount,
+      settings.playerNames,
+    );
     return GameRound(
       settings: settings,
       term: term ?? _pickTerm(settings.category),
-      players: _assignRoles(
-        settings.playerCount,
-        settings.imposterCount,
-        settings.playerNames,
-      ),
+      players: players,
+      startingPlayer: players[_random.nextInt(players.length)],
     );
   }
 

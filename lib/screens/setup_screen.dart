@@ -12,17 +12,7 @@ import '../theme/app_theme.dart';
 import 'reveal_screen.dart';
 
 class SetupScreen extends StatefulWidget {
-  const SetupScreen({
-    super.key,
-    this.initialPlayerNames = const [],
-    this.initialPlayerCount,
-  });
-
-  /// Names to pre-fill the player fields with (used when continuing a game).
-  final List<String> initialPlayerNames;
-
-  /// Player count to restore (used when continuing a game).
-  final int? initialPlayerCount;
+  const SetupScreen({super.key});
 
   @override
   State<SetupScreen> createState() => _SetupScreenState();
@@ -44,20 +34,6 @@ class _SetupScreenState extends State<SetupScreen> {
       List.generate(_maxPlayers, (_) => TextEditingController());
 
   int get _maxImposters => _playerCount >= 6 ? 2 : 1;
-
-  @override
-  void initState() {
-    super.initState();
-    final count = widget.initialPlayerCount;
-    if (count != null && count >= _minPlayers && count <= _maxPlayers) {
-      _playerCount = count;
-    }
-    for (var i = 0;
-        i < widget.initialPlayerNames.length && i < _nameControllers.length;
-        i++) {
-      _nameControllers[i].text = widget.initialPlayerNames[i];
-    }
-  }
 
   @override
   void dispose() {

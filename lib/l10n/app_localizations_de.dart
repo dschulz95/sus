@@ -123,6 +123,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get categoryLabel => 'Kategorie';
 
   @override
+  String get whoStarts => 'Wer fängt an?';
+
+  @override
   String get timeLeft => 'Verbleibende Zeit';
 
   @override

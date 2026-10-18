@@ -27,8 +27,9 @@ Crewmates win by catching an imposter; the imposter wins by staying hidden.
 - 3–12 players, 1 or 2 imposters
 - Optional discussion timer (off / 2 / 3 / 5 min)
 - Optional hint word for imposters (on / off)
-- Optional custom player names, kept (with the player count) when playing again
-- Pass-the-device reveal flow with private cards, starting with a random player
+- Optional custom player names
+- Pass-the-device reveal flow with private cards, starting with a random player,
+  then a randomly chosen player opens the discussion
 - Group vote and result screen
 - Dependency-light architecture with fully unit-tested game logic
 

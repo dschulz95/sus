@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../models/app_language.dart';
 import '../models/game_round.dart';
+import '../models/player.dart';
 import '../theme/app_theme.dart';
 import '../widgets/info_card.dart';
 import 'vote_screen.dart';
@@ -62,6 +63,9 @@ class _DiscussionScreenState extends State<DiscussionScreen> {
     return '$minutes:$seconds';
   }
 
+  String _playerLabel(AppLocalizations l10n, Player player) =>
+      player.name.isNotEmpty ? player.name : l10n.playerNumber(player.number);
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -76,6 +80,12 @@ class _DiscussionScreenState extends State<DiscussionScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(flex: 2),
+              InfoCard(
+                label: l10n.whoStarts,
+                value: _playerLabel(l10n, widget.round.startingPlayer),
+                emphasized: true,
+              ),
+              const SizedBox(height: 16),
               InfoCard(
                 label: l10n.categoryLabel,
                 value: widget.round.settings.category.name(lang),

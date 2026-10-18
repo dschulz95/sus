@@ -77,6 +77,12 @@ class _DiscussionScreenState extends State<DiscussionScreen> {
             children: [
               const Spacer(flex: 2),
               InfoCard(
+                label: l10n.whoStarts,
+                value: widget.round.startingPlayer.label(l10n),
+                emphasized: true,
+              ),
+              const SizedBox(height: 16),
+              InfoCard(
                 label: l10n.categoryLabel,
                 value: widget.round.settings.category.name(lang),
               ),

@@ -296,6 +296,12 @@ abstract class AppLocalizations {
   /// **'Category'**
   String get categoryLabel;
 
+  /// No description provided for @whoStarts.
+  ///
+  /// In en, this message translates to:
+  /// **'Who starts?'**
+  String get whoStarts;
+
   /// No description provided for @timeLeft.
   ///
   /// In en, this message translates to:

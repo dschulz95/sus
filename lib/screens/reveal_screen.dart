@@ -41,9 +41,6 @@ class _RevealScreenState extends State<RevealScreen> {
   Player get _current => _revealOrder[_index];
   bool get _isLast => _index == _revealOrder.length - 1;
 
-  String _playerLabel(AppLocalizations l10n, Player player) =>
-      player.name.isNotEmpty ? player.name : l10n.playerNumber(player.number);
-
   void _continue() {
     if (_isLast) {
       Navigator.of(context).pushReplacement(
@@ -64,7 +61,7 @@ class _RevealScreenState extends State<RevealScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: Text(_playerLabel(l10n, _current))),
+      appBar: AppBar(title: Text(_current.label(l10n))),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -92,7 +89,7 @@ class _RevealScreenState extends State<RevealScreen> {
         ),
         const SizedBox(height: 8),
         Text(
-          _playerLabel(l10n, _current),
+          _current.label(l10n),
           textAlign: TextAlign.center,
           style: Theme.of(context)
               .textTheme

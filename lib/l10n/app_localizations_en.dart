@@ -122,6 +122,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categoryLabel => 'Category';
 
   @override
+  String get whoStarts => 'Who starts?';
+
+  @override
   String get timeLeft => 'Time left';
 
   @override

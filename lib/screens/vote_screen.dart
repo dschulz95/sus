@@ -22,8 +22,7 @@ class VoteScreen extends StatelessWidget {
 
   void _confirmVote(BuildContext context, Player player) {
     final l10n = AppLocalizations.of(context)!;
-    final label =
-        player.name.isNotEmpty ? player.name : l10n.playerNumber(player.number);
+    final label = player.label(l10n);
     showDialog<void>(
       context: context,
       builder: (dialogContext) => AlertDialog(
@@ -71,9 +70,7 @@ class VoteScreen extends StatelessWidget {
                   separatorBuilder: (_, __) => const SizedBox(height: 12),
                   itemBuilder: (context, index) {
                     final player = round.players[index];
-                    final label = player.name.isNotEmpty
-                        ? player.name
-                        : l10n.playerNumber(player.number);
+                    final label = player.label(l10n);
                     return Card(
                       color: AppTheme.card,
                       shape: RoundedRectangleBorder(

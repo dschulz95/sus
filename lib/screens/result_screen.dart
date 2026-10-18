@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../models/app_language.dart';
 import '../models/game_round.dart';
-import '../models/player.dart';
 import '../services/game_engine.dart';
 import '../widgets/info_card.dart';
 import 'setup_screen.dart';
@@ -25,8 +24,7 @@ class ResultScreen extends StatelessWidget {
     final lang = appLanguageOf(context);
     final outcome = determineOutcome(round, votedOutNumber);
 
-    final imposterNames =
-        round.imposters.map((p) => _playerLabel(l10n, p)).join(', ');
+    final imposterNames = round.imposters.map((p) => p.label(l10n)).join(', ');
 
     final votedOutPlayer = votedOutNumber == null
         ? null
@@ -68,9 +66,8 @@ class ResultScreen extends StatelessWidget {
               const SizedBox(height: 12),
               InfoCard(
                 label: l10n.votedOut,
-                value: votedOutPlayer == null
-                    ? '—'
-                    : _playerLabel(l10n, votedOutPlayer),
+                value:
+                    votedOutPlayer == null ? '—' : votedOutPlayer.label(l10n),
               ),
               const Spacer(),
               FilledButton(
@@ -88,9 +85,6 @@ class ResultScreen extends StatelessWidget {
       ),
     );
   }
-
-  String _playerLabel(AppLocalizations l10n, Player player) =>
-      player.name.isNotEmpty ? player.name : l10n.playerNumber(player.number);
 
   String _outcomeText(GameOutcome outcome, AppLocalizations l10n) {
     switch (outcome) {
@@ -116,7 +110,12 @@ class ResultScreen extends StatelessWidget {
 
   void _playAgain(BuildContext context) {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const SetupScreen()),
+      MaterialPageRoute(
+        builder: (_) => SetupScreen(
+          initialPlayerNames: round.settings.playerNames,
+          initialPlayerCount: round.settings.playerCount,
+        ),
+      ),
     );
   }
 

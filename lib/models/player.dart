@@ -1,3 +1,5 @@
+import '../l10n/app_localizations.dart';
+
 /// A participant in a round.
 class Player {
   /// 1-based display number, e.g. "Player 3".
@@ -13,4 +15,8 @@ class Player {
     required this.isImposter,
     this.name = '',
   });
+
+  /// The custom name, or the localized "Player N" fallback.
+  String label(AppLocalizations l10n) =>
+      name.isNotEmpty ? name : l10n.playerNumber(number);
 }

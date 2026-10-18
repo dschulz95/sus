@@ -85,7 +85,9 @@ lib/
 assets/
   config.example.json   # template for the OpenAI API key (git-ignored real file: config.json)
 test/
+  discussion_screen_test.dart
   game_engine_test.dart
+  result_screen_test.dart
   setup_screen_layout_test.dart
   term_generator_test.dart
   widget_test.dart

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
@@ -20,11 +22,24 @@ class RevealScreen extends StatefulWidget {
 }
 
 class _RevealScreenState extends State<RevealScreen> {
+  /// Players in reveal order, rotated so a random player starts.
+  late final List<Player> _revealOrder;
   int _index = 0;
   bool _revealed = false;
 
-  Player get _current => widget.round.players[_index];
-  bool get _isLast => _index == widget.round.players.length - 1;
+  @override
+  void initState() {
+    super.initState();
+    final players = widget.round.players;
+    final start = Random().nextInt(players.length);
+    _revealOrder = [
+      for (var i = 0; i < players.length; i++)
+        players[(start + i) % players.length],
+    ];
+  }
+
+  Player get _current => _revealOrder[_index];
+  bool get _isLast => _index == _revealOrder.length - 1;
 
   String _playerLabel(AppLocalizations l10n, Player player) =>
       player.name.isNotEmpty ? player.name : l10n.playerNumber(player.number);
